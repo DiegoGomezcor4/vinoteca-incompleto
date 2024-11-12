@@ -1,20 +1,23 @@
 from abc import ABC, abstractmethod
 
 class EntidadVineria(ABC):
-    def __init__(self, nombre):
-        self._id = id               # atributo protegido
-        self._nombre = nombre       # atributo protegido
-        
-    def establecerNombre(self, nombre):
+    """constructor"""
+    def __init__(self,id: str, nombre: str):
+        self._id : str = id               # atributo protegido
+        self._nombre : str = nombre       # atributo protegido
+    
+    """comandos"""    
+    def establecerNombre(self, nombre: str) -> None:
         self._nombre = nombre
-        
+     
+    """consultas"""   
     @abstractmethod
-    def obtenerId(self):
+    def obtenerId(self) -> str:
         """Metodo abstracto para obtener el ID"""
         return self._id
     
-    def obtenerNombre(self):
+    def obtenerNombre(self) -> str:
         return self._nombre
     
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         return isinstance(other, EntidadVineria) and self._id == other._id
