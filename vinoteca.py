@@ -1,3 +1,6 @@
+"""vinoteca.py: Contiene la clase Vinoteca, que centraliza la lógica de consultas sobre el archivo JSON 
+y provee métodos para buscar y filtrar bodegas, cepas y vinos"""
+
 # librerias
 import os
 import json

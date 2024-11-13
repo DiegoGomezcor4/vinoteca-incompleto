@@ -1,3 +1,7 @@
+"""entidadvineria.py, bodega.py, cepa.py, vino.py: Cada archivo contiene la clase que representa una
+entidad específica. EntidadVineria es la clase base abstracta que define atributos comunes a bodegas, 
+cepas y vinos"""
+
 from abc import ABC, abstractmethod
 
 class EntidadVineria(ABC):

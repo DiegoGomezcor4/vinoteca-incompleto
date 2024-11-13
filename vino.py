@@ -8,3 +8,12 @@ class Vino(EntidadVineria):
         self.cepas = cepas
         self.partidas = partidas
         
+    """para devolver la bodega que produce el vino y las cepas con las que se elabora."""
+    
+    def obtener_bodega(self):
+        """Devuelve la bodega a la que pertenece el vino."""
+        return self.bodega
+
+    def obtener_cepa(self):
+        """Devuelve la lista de cepas asociadas al vino."""
+        return self.cepas

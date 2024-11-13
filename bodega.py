@@ -2,6 +2,8 @@ from entidadvineria import EntidadVineria
 from vinoteca import Vinoteca
 
 class Bodega(EntidadVineria):
+    
+    """devuelven listas de vinos y cepas asociadas a la bodega."""
     def obtenerVinos(self):
         return [vino for vino in Vinoteca.obtenerVinos() if vino.bodega == self.id]
     

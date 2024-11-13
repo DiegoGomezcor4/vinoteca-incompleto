@@ -1,3 +1,5 @@
+"""main.py: Este es el archivo principal donde se configura el servidor Flask y se establecen las rutas de la API"""
+
 # Flask
 from flask import Flask
 from flask_restful import Api
@@ -8,10 +10,11 @@ from vinoteca import Vinoteca
 from recursos import *
 
 if __name__ == "__main__":
-    Vinoteca.inicializar()
+    Vinoteca.inicializar()  # Inicializa y carga los datos desde el archivo JSON.
 
     app = Flask(__name__)
 
+    """se definen las rutas de la API usando Flask-RESTful"""
     api = Api(app)
     api.add_resource(RecursoBodega, '/api/bodegas/<id>')
     api.add_resource(RecursoBodegas, '/api/bodegas')

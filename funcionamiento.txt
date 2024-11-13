@@ -1,0 +1,66 @@
+1. Estructura del Programa
+El programa se organiza en módulos separados que representan las entidades de una vinoteca virtual y los servicios web para exponer datos sobre bodegas, cepas y vinos. La estructura del proyecto es modular y se basa en los siguientes archivos:
+
+app.py: Este es el archivo principal donde se configura el servidor Flask y se establecen las rutas de la API.
+vinoteca.py: Contiene la clase Vinoteca, que centraliza la lógica de consultas sobre el archivo JSON y provee métodos para buscar y filtrar bodegas, cepas y vinos.
+entidadvineria.py, bodega.py, cepa.py, vino.py: Cada archivo contiene la clase que representa una entidad específica. EntidadVineria es la clase base abstracta que define atributos comunes a bodegas, cepas y vinos.
+recursos.py: Define los recursos de la API, que responden a las rutas de la API y usan los métodos de la clase Vinoteca para recuperar datos.
+vinoteca.json: El archivo JSON que almacena los datos de bodegas, cepas y vinos que serán consultados.
+2. Inicialización del Programa (app.py)
+Al iniciar el programa, el archivo app.py ejecuta los siguientes pasos:
+
+python
+Copiar código
+if __name__ == "__main__":
+    Vinoteca.inicializar()  # Inicializa y carga los datos desde el archivo JSON.
+La función Vinoteca.inicializar() lee los datos del archivo JSON y los convierte en objetos de las clases Bodega, Cepa, y Vino, que se almacenan en listas de clase (Vinoteca.bodegas, Vinoteca.cepas, Vinoteca.vinos).
+
+3. Configuración de las Rutas de la API
+En app.py, también se definen las rutas de la API usando Flask-RESTful:
+
+python
+Copiar código
+api = Api(app)
+api.add_resource(RecursoBodega, '/api/bodegas/<id>')
+api.add_resource(RecursoBodegas, '/api/bodegas')
+api.add_resource(RecursoCepa, '/api/cepas/<id>')
+api.add_resource(RecursoCepas, '/api/cepas')
+api.add_resource(RecursoVino, '/api/vinos/<id>')
+api.add_resource(RecursoVinos, '/api/vinos')
+Cada ruta apunta a una clase de recurso definida en recursos.py. Por ejemplo, RecursoBodega maneja la ruta /api/bodegas/<id>, que devuelve la información de una bodega específica.
+
+4. Clases de Entidades (entidadvineria.py, bodega.py, cepa.py, vino.py)
+Las clases Bodega, Cepa y Vino heredan de una clase abstracta llamada EntidadVineria, que define los atributos comunes id y nombre, y algunos métodos básicos como obtenerId() y obtenerNombre().
+
+Cada entidad tiene métodos adicionales para recuperar información específica. Por ejemplo:
+
+Bodega: Tiene métodos como obtenerVinos() y obtenerCepas(), que devuelven listas de vinos y cepas asociadas a la bodega.
+Cepa: Incluye métodos para recuperar los vinos que usan esa cepa en particular.
+Vino: Proporciona métodos como obtenerBodega() y obtenerCepas() para devolver la bodega que produce el vino y las cepas con las que se elabora.
+5. Clase Vinoteca (Consulta de Datos)
+La clase Vinoteca en vinoteca.py tiene varios métodos de consulta, que se utilizan en los recursos de la API:
+
+obtenerBodegas(): Devuelve la lista de bodegas, permitiendo ordenar los resultados.
+obtenerCepas(): Devuelve una lista de cepas, con opciones para ordenar.
+obtenerVinos(): Devuelve una lista de vinos, filtrada por año si se especifica.
+buscarBodega(), buscarCepa(), buscarVino(): Devuelven un objeto específico de bodega, cepa o vino según el id proporcionado.
+El método inicializar() carga los datos desde vinoteca.json, y convierte la información JSON en objetos de Bodega, Cepa y Vino.
+
+6. Recursos de la API (Respuestas HTTP)
+En recursos.py, cada recurso (por ejemplo, RecursoBodega, RecursoCepa, etc.) maneja un tipo específico de consulta a la API.
+
+Por ejemplo, RecursoBodega maneja una solicitud para obtener la información de una bodega específica. En el método get de RecursoBodega, se llama a Vinoteca.buscarBodega(id), y si se encuentra la bodega, se llama a convertirAJSONFull() para devolver la respuesta en formato JSON.
+
+7. Ejecución y Prueba de la API
+Cuando el servidor Flask está en ejecución, puedes acceder a las distintas rutas de la API en tu navegador o usando herramientas como curl o Postman para probar las respuestas de cada recurso. Por ejemplo:
+
+bash
+Copiar código
+curl http://localhost:5000/api/bodegas/a0900e61-0f72-67ae-7e9d-4218da29b7d8
+Este comando hará una solicitud a la API para obtener los datos de una bodega específica. Si todo está configurado correctamente, debería devolver una respuesta JSON con la información de esa bodega.
+
+8. Resumen del Flujo de Datos
+Solicitud a la API: El usuario accede a una ruta de la API (por ejemplo, /api/bodegas/<id>).
+Llamada al Recurso: El recurso correspondiente en recursos.py maneja la solicitud y llama a un método de la clase Vinoteca.
+Consulta en Vinoteca: Vinoteca busca o filtra los datos necesarios desde sus listas de bodegas, cepas y vinos.
+Conversión a JSON: Los datos se convierten a formato JSON usando el método convertirAJSONFull() de cada entidad y se devuelven al cliente como respuesta.

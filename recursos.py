@@ -1,3 +1,6 @@
+"""recursos.py: Define los recursos de la API, que responden a las rutas de la API y 
+usan los métodos de la clase Vinoteca para recuperar datos."""
+
 from flask_restful import Resource
 from flask import request
 
