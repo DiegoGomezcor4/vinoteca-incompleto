@@ -38,3 +38,26 @@ class Vino(EntidadVineria):
     def obtenerCepas(self):
         """Devuelve una lista de objetos de tipo Cepa asociados al vino."""
         return [self.vinoteca.buscarCepa(cepa) for cepa in self._cepas]
+    
+    def obtenerPartidas(self):
+        """Devuelve la lista de partidas asociadas al vino"""
+        return self._partidas
+    
+    def convertirAJSON(self):
+        """Convierte los atributos básicos del vino a un diccionario Json"""
+        return {
+            "id": self._id,
+            "nombre": self._bodega,
+            "bodega": self._cepas,
+            "partidas": self._partidas
+        }
+        
+    def convertirAJSONFull(self):
+        """Convierte todos los detalles del vino a un diccionario Json, incluyendo bodega y cepas completas"""
+        return {
+            "id": self._id,
+            "nombre": self._nombre,
+            "bodega": self.obtenerBodega(), #Objeto completo de Bodega
+            "cepas": [cepa for cepa in self.obtenerCepas()], #Lista de objetos de Cepa
+            "partidas": self._partidas
+        }      
