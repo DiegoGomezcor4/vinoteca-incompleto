@@ -18,7 +18,7 @@ class EntidadVineria(ABC):
     @abstractmethod
     def obtenerId(self) -> str:
         """Metodo abstracto para obtener el ID"""
-        return self._id
+        pass
     
     def obtenerNombre(self) -> str:
         return self._nombre
