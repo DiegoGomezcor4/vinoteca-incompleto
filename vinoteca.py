@@ -54,18 +54,41 @@ class Vinoteca:
             elif orden == "cepas":
                 vinos = sorted(vinos, key=lambda v: len(v.obtenerCepas()), reverse=reverso)
         return vinos
-
+    
+    @staticmethod
     def buscarBodega(id):
-        pass  # completar
+        for bodega in Vinoteca.__bodegas:
+            if bodega.obtenerId() == id:
+                return bodega
+        return None
 
+    @staticmethod
     def buscarCepa(id):
-        pass  # completar
+        for cepa in Vinoteca.__cepas:
+            if cepa.obtenerId() == id:
+                return cepa
+        return None
 
+    @staticmethod
     def buscarVino(id):
-        pass  # completar
+        for vino in Vinoteca.__vinos:
+            if vino.obtenerId() == id:
+                return vino
+        return None
 
+    @staticmethod
     def __parsearArchivoDeDatos():
-        pass  # completar
+        if not os.path.exists(Vinoteca.__archivoDeDatos):
+            raise FileNotFoundError(f"No se encontró el archivo {Vinoteca.__archivoDeDatos}")
 
+        with open(Vinoteca.__archivoDeDatos, "r", encoding="utf-8") as archivo:
+            return json.load(archivo)
+
+    @staticmethod
     def __convertirJsonAListas(lista):
-        pass  # completar
+        if "bodegas" in lista:
+            Vinoteca.__bodegas = [Bodega(**b) for b in lista["bodegas"]]
+        if "cepas" in lista:
+            Vinoteca.__cepas = [Cepa(**c) for c in lista["cepas"]]
+        if "vinos" in lista:
+            Vinoteca.__vinos = [Vino(**v) for v in lista["vinos"]]
