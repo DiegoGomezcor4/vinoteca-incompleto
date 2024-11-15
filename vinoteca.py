@@ -33,11 +33,13 @@ class Vinoteca:
                 bodegas = sorted(bodegas, key=lambda b: len(b.obtenerVinos()), reverse=reverso )
         return bodegas
 
+    @staticmethod
     def obtenerCepas(orden=None, reverso=False):
+        cepas = Vinoteca.__cepas
         if isinstance(orden, str):
             if orden == "nombre":
-                pass  # completar
-        pass  # completar
+                cepas = sorted(cepas, key=lambda c: c.obtener(), reverse=reverso)
+        return cepas
 
     def obtenerVinos(anio=None, orden=None, reverso=False):
         if isinstance(anio, int):
