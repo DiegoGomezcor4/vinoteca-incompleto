@@ -42,16 +42,18 @@ class Vinoteca:
         return cepas
 
     def obtenerVinos(anio=None, orden=None, reverso=False):
+        vinos = Vinoteca.__vinos
+        
         if isinstance(anio, int):
-            pass  # completar
+            vinos = [v for v in vinos if v.obtenerAnio() == anio]
         if isinstance(orden, str):
             if orden == "nombre":
-                pass  # completar
+                vinos = sorted(vinos, key=lambda v: v.obtenerNombre(), reverse=reverso)
             elif orden == "bodega":
-                pass  # completar
+                vinos = sorted(vinos, key=lambda v: v.obtenerBodega().obtenerNombre(), reverse=reverso)
             elif orden == "cepas":
-                pass  # completar
-        pass  # completar
+                vinos = sorted(vinos, key=lambda v: len(v.obtenerCepas()), reverse=reverso)
+        return vinos
 
     def buscarBodega(id):
         pass  # completar
