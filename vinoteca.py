@@ -18,17 +18,20 @@ class Vinoteca:
     __cepas = []
     __vinos = []
 
+    @staticmethod
     def inicializar():
         datos = Vinoteca.__parsearArchivoDeDatos()
         Vinoteca.__convertirJsonAListas(datos)
 
+    @staticmethod
     def obtenerBodegas(orden=None, reverso=False):
+        bodegas = Vinoteca.__bodegas
         if isinstance(orden, str):
             if orden == "nombre":
-                pass  # completar
+                bodegas = sorted(bodegas, key=lambda b: b.obtenerNombre(), reverse=reverso)
             elif orden == "vinos":
-                pass  # completar
-        pass  # completar
+                bodegas = sorted(bodegas, key=lambda b: len(b.obtenerVinos()), reverse=reverso )
+        return bodegas
 
     def obtenerCepas(orden=None, reverso=False):
         if isinstance(orden, str):
