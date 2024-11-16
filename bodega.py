@@ -1,11 +1,11 @@
 from entidadvineria import EntidadVineria
-from vinoteca import Vinoteca
+#from vinoteca import Vinoteca
 
 class Bodega(EntidadVineria):
     
-    def __init__(self, id, nombre, vinos=None):
-        super().__init__(id, nombre)  # Llama al constructor de EntidadVineria si lo tiene.
-        self.__vinos = vinos if vinos is not None else []  # Inicializa la lista de vinos
+    def __init__(self, id: str, nombre: str, vinos=None):
+        super().__init__(id, nombre)  # Llama al constructor de la clase base correctamente.
+        self.__vinos = vinos if vinos is not None else []  # Inicializa la lista de vinos.
 
     
     """devuelven listas de vinos y cepas asociadas a la bodega."""

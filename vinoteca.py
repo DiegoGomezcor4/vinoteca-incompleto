@@ -9,6 +9,7 @@ import json
 from modelos.bodega import Bodega
 from modelos.cepa import Cepa
 from modelos.vino import Vino
+from bodega import Bodega
 
 
 class Vinoteca:
@@ -87,7 +88,12 @@ class Vinoteca:
     @staticmethod
     def __convertirJsonAListas(lista):
         if "bodegas" in lista:
-            Vinoteca.__bodegas = [Bodega(**b) for b in lista["bodegas"]]
+            Vinoteca.__bodegas = [
+                                    Bodega(
+                                        id=b["id"],
+                                        nombre=b["nombre"]
+                                    ) for b in lista["bodegas"]
+                                ]
         if "cepas" in lista:
             Vinoteca.__cepas = [Cepa(**c) for c in lista["cepas"]]
         if "vinos" in lista:
